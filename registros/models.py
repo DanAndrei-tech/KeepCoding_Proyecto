@@ -4,7 +4,7 @@ from registros import ORIGIN_DATA
 def select_all():
     con = sqlite3.connect(ORIGIN_DATA)
     cur = con.cursor()
-    res = cur.execute("select * coches")
+    res = cur.execute("select * from coches")
     filas = res.fetchall() #
     columnas= res.description #
                                                           
