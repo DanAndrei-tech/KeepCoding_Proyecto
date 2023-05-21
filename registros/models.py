@@ -1,5 +1,6 @@
 import sqlite3
 from registros import ORIGIN_DATA
+from flask import redirect,url_for
 
 def select_all():
     con = sqlite3.connect(ORIGIN_DATA)
@@ -22,3 +23,13 @@ def select_all():
     con.close()
     
     return lista_diccionario
+
+def insert():
+    con = sqlite3.connect(ORIGIN_DATA)
+    cur = con.cursor()
+    res = cur.execute(f"insert into coches VALUES(NULL, 'LAMBO','GALLARDO', 100000,'LOSANGELES') ")
+    con.commit()
+
+    con.close()
+
+    
