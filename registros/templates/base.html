@@ -4,35 +4,39 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% block title %} FLASK-PYTHON {% endblock %} | KeepCoding</title>
+    <title>{% block title %}FLASK-PYTHON{% endblock %} | KeepCoding</title>
     <link
       rel="stylesheet"
-      href="{{url_for('static', filename= 'css/styles.css')}}"
+      href="{{url_for('static', filename='css/styles.css')}}"
     />
   </head>
   <body>
-    <h1>El coche de tus sueños esta aquí</h1>
-    <hr />
-    <ul>
-      <li>
-        <a href="{{url_for('index')}}">Inicio</a>
-      </li>
-      <li>
-        <a href="{{url_for('insertar_coche')}}">Informacion</a>
-      </li>
-      <li>
-        <a href="{{url_for('contacto')}}">Contacto</a>
-      </li>
-      <li>
-        <a href="{{url_for('lenguajes')}}">Coches</a>
-      </li>
-    </ul>
-    <hr />
+    <header>
+      <h1>El coche de tus sueños está aquí</h1>
+      <hr />
+      <ul>
+        <li>
+          <a href="{{url_for('index')}}">Inicio</a>
+        </li>
+        <li>
+          <a href="{{url_for('crear_coche')}}">Crear coche</a>
+        </li>
+        <li>
+          <a href="{{url_for('mostrar_coches')}}">Listado de Coches</a>
+        </li>
+        {% if coche %}
+        <li>
+          <a href="{{url_for('coche', coche_id=coche[0]) }}">Detalles coche</a>
+        </li>
+        {% endif %}
+      </ul>
+      <hr />
+    </header>
 
     <section id="content">{% block content %} {% endblock %}</section>
 
     <footer>
-      <h4>App con flask y Python</h4>
+      <h4>Gracias KeepCoding</h4>
     </footer>
   </body>
 </html>

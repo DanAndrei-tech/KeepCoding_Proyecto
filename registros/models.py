@@ -1,35 +1,51 @@
 import sqlite3
 from registros import ORIGIN_DATA
-from flask import redirect,url_for
+from flask import redirect,url_for,flash,render_template
 
 def select_all():
     con = sqlite3.connect(ORIGIN_DATA)
     cur = con.cursor()
     res = cur.execute("select * from coches")
-    filas = res.fetchall() #
-    columnas= res.description #
+    coches = res.fetchall() 
+    cur.close()
+
+    return coches
                                                           
-    #objetivo crear una lista de diccionario con filas y columnas
-    lista_diccionario=[]
-    
-    for f in filas:
-        diccionario={}
-        posicion=0
-        for c in columnas:
-            diccionario[c[0]] = f[posicion] 
-            posicion +=1
-        lista_diccionario.append(diccionario)
-
-    con.close()
-    
-    return lista_diccionario
-
-def insert():
+def insert(registroForm):
     con = sqlite3.connect(ORIGIN_DATA)
     cur = con.cursor()
-    res = cur.execute(f"insert into coches VALUES(NULL, 'LAMBO','GALLARDO', 100000,'LOSANGELES') ")
+    res = cur.execute(f"insert into coches(marca,modelo,precio,ciudad) values(?,?,?,?)",registroForm)
     con.commit()
 
+    flash('Has creado el coche correctamente!')
+
     con.close()
+
+
+def select_by(id):
+    con = sqlite3.connect(ORIGIN_DATA)
+    cur = con.cursor()
+    res = cur.execute(f"select * from coches where id={id}")
+    
+    resultado = res.fetchall()
+    con.close()
+
+    if resultado:
+        return resultado[0]
+    else:
+        return None
+
+
+
+def delete_by(coche_id):
+    con = sqlite3.connect(ORIGIN_DATA)
+    cur = con.cursor()
+    cur.execute(f"delete from coches where id={coche_id}")
+
+    con.commit()
+
+    flash('El coche ha sido eliminado')
+    con.close()
+    return redirect(url_for('coche', coche_id=coche_id))
 
     
