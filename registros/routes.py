@@ -10,13 +10,22 @@ def index():
 @app.route('/crear-coche', methods=['GET', 'POST'])
 def crear_coche():
     if request.method == 'POST':
-        insert([request.form['marca'],
-                request.form['modelo'],
-                request.form['precio'],
-                request.form['ciudad']])
-        return redirect('/')
-    
+        marca = request.form['marca']
+        modelo = request.form['modelo']
+        precio = request.form['precio']
+        ciudad = request.form['ciudad']
+
+        if not marca or not modelo or not ciudad:
+            flash('Por favor, completa todos los campos')
+        elif int(precio) <= 0:
+            flash('El precio debe ser mayor que cero')
+        else:
+            insert([marca, modelo, precio, ciudad])
+            flash('Has creado el coche correctamente!')
+            return redirect(url_for('mostrar_coches'))
+
     return render_template('crear_coche.html')
+
 
 @app.route('/coches')
 def mostrar_coches():
@@ -33,7 +42,24 @@ def coche(coche_id):
 def borrar_coche(coche_id):
    coche = select_by(coche_id)
    borrar = delete_by(coche_id)
-   return render_template('coches.html', coche=coche)
+   return redirect(url_for('mostrar_coches'))
+
+
+
+@app.route('/editar-coche/<int:coche_id>', methods=['GET', 'POST'])
+def editar_coche(coche_id):
+    if request.method == 'POST':
+        update_by(coche_id, {
+            'marca': request.form['marca'],
+            'modelo': request.form['modelo'],
+            'precio': request.form['precio'],
+            'ciudad': request.form['ciudad']
+        })
+        return redirect(url_for('mostrar_coches'))
+
+    coche = select_by(coche_id)
+    coches = select_all()
+    return render_template('crear_coche.html', coche=coche, coches=coches)
 
 
 

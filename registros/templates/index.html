@@ -1,7 +1,16 @@
 {% extends 'base.html' %} {% block title %} FLASK {% endblock %} {% block
 content %}
-
 <h1>Mi app con FLASK y Python</h1>
+
+<div class="intro">
+  <h2>Bienvenido al Concesionario de Coches</h2>
+  <h3>Explora nuestra amplia selección de coches</h3>
+  <a href="{{ url_for('mostrar_coches') }}" class="btn_car">Ver Coches</a>
+</div>
+
+<div class="car-image">
+  <img src="{{ url_for('static', filename='images/car2.jpg') }}" alt="Coche" />
+</div>
 
 {% with messages = get_flashed_messages() %} {% if messages %} {% for message in
 messages %}

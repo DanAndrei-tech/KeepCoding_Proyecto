@@ -164,3 +164,50 @@ form input[type="submit"] {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
+
+/*Flash message******************/
+.flash-message {
+  text-align: center;
+  color: white;
+  background-color: green;
+  padding: 10px;
+}
+
+/*INDEX******************************/
+.intro {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.intro h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.intro p {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.btn_car {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}
+
+.car-image {
+  width: 100%;
+}
+.car-image img {
+  width: 100%;
+  height: auto;
+  background-position: center top;
+}
